@@ -23,7 +23,7 @@ const SearchBar = () => {
         {
              country.map((data)=>{
                return (
-               <div className={styles.innercontainer} key={data.abbr}>
+               <div className={styles.countryCard} key={data.abbr}>
                 <img  className={styles.imgSrc} src={data.flags.png} alt="image"/>
                 <h3>{data.name.common}</h3> 
                 </div>

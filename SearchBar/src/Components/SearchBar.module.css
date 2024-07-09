@@ -21,7 +21,7 @@ display: flex;
      justify-content: center;
     align-items: center; 
  } 
-.innercontainer{
+.countryCard{
     width: 10%;
     height:180px;
     border: 1px solid gray;
