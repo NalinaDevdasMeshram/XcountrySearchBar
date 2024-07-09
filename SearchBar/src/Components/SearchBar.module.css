@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+.countryCard{
+    width: 100vw;
+    height: 15vh;
+    border: 2px solid red;
+    margin: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+.SearchBox{
+ width: 80rem;
+ height: 40px;
+ border-radius:8px;
+ font-size: 20px;
+ font-weight: 400;
+ padding: 10px;
+}
