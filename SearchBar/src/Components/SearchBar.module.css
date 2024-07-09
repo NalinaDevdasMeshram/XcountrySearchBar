@@ -1,24 +1,44 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
-}
-.countryCard{
-    width: 100vw;
-    height: 15vh;
-    border: 2px solid red;
-    margin: 0;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-}
 .searchBox{
- width: 80rem;
- height: 40px;
+width: calc(100% - 200px);
+height: 34px;
+margin: 50px auto;
+margin-right: 100px;
+display: flex;
+ justify-content: center;
+ align-items: center;
  border-radius:8px;
  font-size: 20px;
  font-weight: 400;
  padding: 10px;
 }
+ .container{
+    width: 100vw;
+    height: 100rem;
+    display: flex;
+    flex-wrap: wrap; 
+     margin-top: 1.5rem; 
+    display: flex; 
+     justify-content: center;
+    align-items: center; 
+ } 
+.innercontainer{
+    width: 10%;
+    height:180px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   align-items: center;
+   text-align: center;
+   font-weight: 600;
+   font-size: 20px;
+}
+
+.imgSrc{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+ }

@@ -7,7 +7,7 @@ const SearchBar = () => {
         try{
             const response = await fetch(`https://restcountries.com/v3.1/all`);
              const responseData = await response.json();
-             console.log('getting datat', responseData)
+            //  console.log('getting datat', responseData)
              setCountry(responseData);
         }catch{
               console.log('something went wrong')
@@ -17,12 +17,18 @@ const SearchBar = () => {
         handleSearchBar()
     },[])
   return (
-    <div className={styles.countryCard}>
+    <div>
      <input type="text" className={styles.searchBox} placeholder="Search For Search"/>
-      <div>
+      <div className={styles.container}>
         {
-           <img/>
-           <h3></h3> 
+             country.map((data)=>{
+               return (
+               <div className={styles.innercontainer} key={data.abbr}>
+                <img  className={styles.imgSrc} src={data.flags.png} alt="image"/>
+                <h3>{data.name.common}</h3> 
+                </div>
+                )
+             })
         }
         
       </div>
