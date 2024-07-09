@@ -1,31 +1,68 @@
-import { useEffect, useState } from "react";
-import styles from './SearchBar.module.css'
+/* eslint-disable react-hooks/exhaustive-deps */
+import {useEffect, useState }from "react";
+import styles from './SearchBar.module.css';
 const SearchBar = () => {
-    const [country, setCountry] = useState([])
-    const [countrySearch, setCountrySearch] = useState('')
+    const [country, setCountry] = useState([]);
+    const [countrySearch, setCountrySearch] = useState('');
+    const [debounceSearch, setDebounceSearch] = useState('');
+   
 
-    const handleSearchBar =async()=>{
+    const handleSearchBarApi = async() =>{
         try{
             const response = await fetch(`https://restcountries.com/v3.1/all`);
-             const responseData = await response.json();
-              console.log('getting datat', responseData)
+            const responseData = await response.json();
+            //   console.log('getting datat', responseData)
               setCountry(responseData);
         }
-        catch(e){
-              console.error('something went wrong', e.message)
+        catch(error){
+              console.error('something went wrong', error.message)
+             }
+    }
+   
+    
+    const handleSearchCountryNameApi = async(searchItem) => {
+         console.log('search', searchItem)
+      if(searchItem){   
+       try{
+                const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${debounceSearch}`);
+                const  API_URLResult  = await API_URL.json();
+                console.log('Data result', API_URLResult)
+                 setCountry(API_URLResult)
+              }
+              catch(e){
+                    console.error(e.message)
+              } 
+        } 
+        else{
+            console.log('searchItem', handleSearchBarApi()) // getting promise
+            handleSearchBarApi();
+        
         }
-    }
+      
+    };
     useEffect(()=>{
-        handleSearchBar()
+        handleSearchBarApi()
     },[])
-    const handleChangeSearch =(e)=>{
-       setCountrySearch(e.target.value);
-    }
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounceSearch(countrySearch);
+        }, 500);
 
-    const filtersearchquery = country.filter((searchItem)=>
-        searchItem.name.common.toLowerCase().includes(countrySearch.toLowerCase())
-    )
-     console.log("filterdata",filtersearchquery)
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [countrySearch]);
+
+    useEffect(() => {
+        console.log(debounceSearch)
+       handleSearchCountryNameApi(debounceSearch);
+    }, [debounceSearch]);
+
+   
+    // const filtersearchquery = country.filter((searchItem) =>
+    //     searchItem.name.common.toLowerCase().includes(countrySearch.toLowerCase())
+    // )
+   
 
   return (
     <div>
@@ -33,13 +70,13 @@ const SearchBar = () => {
       className={styles.searchBox}  
       value = {countrySearch} 
       placeholder="Search for Countries..."
-      onChange={handleChangeSearch}
+      onChange={(e)=>setCountrySearch(e.target.value)}
       />
       
       <div className={styles.container}>
         { 
             
-            filtersearchquery.map((data)=>{
+             country.map((data)=>{
                 // console.log('filtersearchquery',filtersearchquery)
         return(
                <div className={styles.countryCard} key={data.cca3}>
@@ -48,7 +85,7 @@ const SearchBar = () => {
                 </div>
                 )
              })
-        }
+          }
         
       </div>
     </div>
