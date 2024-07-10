@@ -71,23 +71,21 @@ const SearchBar = () => {
       onChange={(e)=>setCountrySearch(e.target.value)}
       />
       
-      <div className={styles.container}>
+      <div className={styles.countryCard}>
         { 
-            
-             country.map((data)=>{
-                // console.log('filtersearchquery',filtersearchquery)
-        return(
-               <div className={styles.countryCard} key={data.cca3}>
-                <img className={styles.imgSrc} src={data.flags.png} alt={data.cca3}/>
-                <h3> {data.name.common}</h3> 
-                </div>
-                )
-             })
-          }
-        
-      </div>
-    </div>
-  )
+             country.length > 0 ? (
+              country.map((data) => (
+                  <div className={styles.container} key={data.cca3}>
+                      <img className={styles.imgSrc} src={data.flags.png} alt={data.cca3} />
+                      <h3>{data.name.common}</h3>
+                  </div>
+              ))
+          ) : (
+              <p></p>
+          )
+      }
+  </div>
+</div>
+);
 }
-
 export default SearchBar
