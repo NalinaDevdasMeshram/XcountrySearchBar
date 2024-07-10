@@ -5,7 +5,9 @@ const SearchBar = () => {
     const [countrySearch, setCountrySearch] = useState('');
       // const [debounceSearch, setDebounceSearch] = useState('');
     
-
+      useEffect(()=>{
+        handleSearchBarApi();
+      },[])
       // getting All country data in mounting phase
   const handleSearchBarApi = async() =>{  
         try{
@@ -18,9 +20,9 @@ const SearchBar = () => {
               console.error('something went wrong', error.message)
              }
     }
-    useEffect(()=>{
-      handleSearchBarApi();
-    },[])
+    // useEffect(()=>{
+    //   handleSearchBarApi();
+    // },[])
     // getting data depen upon user typing
     // const handleSearchCountryNameApi = async(searchItem) => {
     //      console.log('search', searchItem)
