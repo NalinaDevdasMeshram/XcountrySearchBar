@@ -11,7 +11,7 @@ const SearchBar = () => {
         try{
             const response = await fetch(`https://restcountries.com/v3.1/all`);
             const responseData = await response.json();
-            //   console.log('getting datat', responseData)
+              //  console.log('getting datat', responseData)
               setCountry(responseData);
         }
         catch(error){
@@ -24,7 +24,7 @@ const SearchBar = () => {
          console.log('search', searchItem)
       if(searchItem){   
        try{
-                const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${debounceSearch}`);
+                const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
                 const  API_URLResult  = await API_URL.json();
                 console.log('Data result', API_URLResult)
                  setCountry(API_URLResult)
@@ -46,7 +46,7 @@ const SearchBar = () => {
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebounceSearch(countrySearch);
-        }, 500);
+        }, 200);
 
         return () => {
             clearTimeout(handler);
@@ -59,9 +59,7 @@ const SearchBar = () => {
     }, [debounceSearch]);
 
    
-    // const filtersearchquery = country.filter((searchItem) =>
-    //     searchItem.name.common.toLowerCase().includes(countrySearch.toLowerCase())
-    // )
+    
    
 
   return (
