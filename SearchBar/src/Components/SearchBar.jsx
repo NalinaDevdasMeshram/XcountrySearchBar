@@ -3,8 +3,11 @@ import styles from './SearchBar.module.css';
 const SearchBar = () => {
     const [country, setCountry] = useState([]);
     const [countrySearch, setCountrySearch] = useState('');
-     const [debounceSearch, setDebounceSearch] = useState('');
-  const handleSearchBarApi = async() =>{
+      const [debounceSearch, setDebounceSearch] = useState('');
+    
+
+      // getting All country data in mounting phase
+  const handleSearchBarApi = async() =>{  
         try{
             const response = await fetch(`https://restcountries.com/v3.1/all`);
             const responseData = await response.json();
@@ -18,13 +21,12 @@ const SearchBar = () => {
     useEffect(()=>{
       handleSearchBarApi();
     },[])
-    
+    // getting data depen upon user typing
     const handleSearchCountryNameApi = async(searchItem) => {
          console.log('search', searchItem)
       if(searchItem){   
        try{
                 const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
-                console.log(API_URL)
                 const  API_URLResult  = await API_URL.json();
                 console.log('Data result', API_URLResult)
                  setCountry(API_URLResult)
@@ -34,27 +36,28 @@ const SearchBar = () => {
               } 
         } 
         else{
-            console.log('searchItem', handleSearchBarApi()) // getting promise
+            // console.log('searchItem', handleSearchBarApi()) // getting promise
             handleSearchBarApi();
         
         }
       
     };
-    useEffect(()=>{
-        handleSearchBarApi()
-    },[])
+    // debouncing 
+    
     useEffect(() => {
-        const handler = setTimeout(() => {
+         
+        const DebounceApi = setTimeout(() => {
+          console.log('debouncing search', DebounceApi)
+          
             setDebounceSearch(countrySearch);
-        }, 200);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [countrySearch]);
+           
+        }, 1000);
+        // console.log('cleartimeout',clearTimeout(DebounceApi))
+          return () => clearTimeout(DebounceApi)
+        }, [countrySearch]);
 
     useEffect(() => {
-        console.log(debounceSearch)
+        console.log("debounceSearch", debounceSearch)
        handleSearchCountryNameApi(debounceSearch);
     }, [debounceSearch]);
 
@@ -76,13 +79,12 @@ const SearchBar = () => {
       <div className={styles.container}>
         { 
             
-             filtersearchquery.map(data=>{
-                 console.log('filtersearchquery',filtersearchquery)
+            filtersearchquery.map(data =>{
+                //  console.log('filtersearchquery',country)
         return(
                <div className={styles.countryCard} key={data.cca3}>
                 <img className={styles.imgSrc} 
-                src={data.flags.png} 
-                alt={data.cca3}/>
+                src={data.flags.png} alt={data.cca3}/>
                 <h3>{data.name.common}</h3> 
                 </div>
                 )
