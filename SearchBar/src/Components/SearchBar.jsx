@@ -1,30 +1,30 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useState }from "react";
 import styles from './SearchBar.module.css';
 const SearchBar = () => {
     const [country, setCountry] = useState([]);
     const [countrySearch, setCountrySearch] = useState('');
-    const [debounceSearch, setDebounceSearch] = useState('');
-   
-
-    const handleSearchBarApi = async() =>{
+     const [debounceSearch, setDebounceSearch] = useState('');
+  const handleSearchBarApi = async() =>{
         try{
             const response = await fetch(`https://restcountries.com/v3.1/all`);
             const responseData = await response.json();
-              //  console.log('getting datat', responseData)
-              setCountry(responseData);
+              // console.log('getting datat', responseData)
+             setCountry(responseData);
         }
         catch(error){
               console.error('something went wrong', error.message)
              }
     }
-   
+    useEffect(()=>{
+      handleSearchBarApi();
+    },[])
     
     const handleSearchCountryNameApi = async(searchItem) => {
          console.log('search', searchItem)
       if(searchItem){   
        try{
                 const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
+                console.log(API_URL)
                 const  API_URLResult  = await API_URL.json();
                 console.log('Data result', API_URLResult)
                  setCountry(API_URLResult)
@@ -59,7 +59,9 @@ const SearchBar = () => {
     }, [debounceSearch]);
 
    
-    
+   const filtersearchquery = country.filter((searchName) =>
+    searchName.name.common.toLowerCase().includes(countrySearch.toLowerCase())
+  ) 
    
 
   return (
@@ -68,24 +70,28 @@ const SearchBar = () => {
       className={styles.searchBox}  
       value = {countrySearch} 
       placeholder="Search for Countries..."
-      onChange={(e)=>setCountrySearch(e.target.value)}
+      onChange={(e) => setCountrySearch(e.target.value)}
       />
       
-      <div className={styles.countryCard}>
+      <div className={styles.container}>
         { 
-             country.length > 0 ? (
-              country.map((data) => (
-                  <div className={styles.container} key={data.cca3}>
-                      <img className={styles.imgSrc} src={data.flags.png} alt={data.cca3} />
-                      <h3>{data.name.common}</h3>
-                  </div>
-              ))
-          ) : (
-              <p></p>
-          )
-      }
-  </div>
-</div>
-);
+            
+             filtersearchquery.map(data=>{
+                 console.log('filtersearchquery',filtersearchquery)
+        return(
+               <div className={styles.countryCard} key={data.cca3}>
+                <img className={styles.imgSrc} 
+                src={data.flags.png} 
+                alt={data.cca3}/>
+                <h3>{data.name.common}</h3> 
+                </div>
+                )
+             })
+          }
+        
+      </div>
+    </div>
+  )
 }
+
 export default SearchBar

@@ -11,7 +11,7 @@ display: flex;
  font-weight: 400;
  padding: 10px;
 }
- .countryCard{
+ .container{
     width: 100vw;
     height: 100rem;
     display: flex;
@@ -21,7 +21,7 @@ display: flex;
      justify-content: center;
     align-items: center; 
  } 
-.container{
+.countryCard{
     width: 10%;
     height:180px;
     border: 1px solid gray;
