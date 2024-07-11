@@ -4,7 +4,7 @@ const SearchBar = () => {
     const [country, setCountry] = useState([]);
     const [countrySearch, setCountrySearch] = useState('');
      const [debounceSearch, setDebounceSearch] = useState('');
-    
+   
     
       // getting All country data in mounting phase
   const handleSearchBarApi = async() =>{  
@@ -15,6 +15,7 @@ const SearchBar = () => {
              setCountry(responseData);
         }
         catch(error){
+          
               console.error('something went wrong', error.message)
              }
     }
@@ -72,19 +73,21 @@ const SearchBar = () => {
      <input type="text" 
       className={styles.searchBox}  
       value = {countrySearch} 
-      placeholder="Search for Countries..."
+      placeholder="Search for countries..."
       onChange={(e) => setCountrySearch(e.target.value)}
       />
       
       <div className={styles.container}>
-        { 
-            
-            filtersearchquery.map(data =>{
+        
+            {filtersearchquery.map(data =>{
                   // console.log('filtersearchquery',filtersearchquery)
         return(
                <div className={styles.countryCard} key={data.cca3}>
-                <img className={styles.imgSrc} 
-                src={data.flags.png} alt={data.cca3}/>
+                <img 
+                className={styles.imgSrc} 
+                src={data.flags.png} 
+                alt={data.cca3}
+                />
                 <h3>{data.name.common}</h3> 
                 </div>
                 )
