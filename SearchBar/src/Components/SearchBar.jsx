@@ -63,26 +63,24 @@ const SearchBar = () => {
     // }, [debounceSearch]);
 
    
-   const filtersearchquery = country.filter((searchName) =>
+   const filtersearchquery = country.filter(searchName =>
     searchName.name.common.toLowerCase().includes(debounceSearch.toLowerCase())
   ) 
    
 
   return (
-    <div>
-     <input type="text" 
+    <div className={styles.searchContainer}>
+     <input 
+     type="text" 
       className={styles.searchBox}  
       value = {countrySearch} 
       placeholder="Search for countries..."
       onChange={(e) => setCountrySearch(e.target.value)}
       />
-      
       <div className={styles.container}>
-        
-            {filtersearchquery.map(data =>{
-                  // console.log('filtersearchquery',filtersearchquery)
-        return(
-               <div className={styles.countryCard} key={data.cca3}>
+        {filtersearchquery.map(data =>(
+        // console.log('filtersearchquery',filtersearchquery)
+          <div className={styles.countryCard} key={data.cca3}>
                 <img 
                 className={styles.imgSrc} 
                 src={data.flags.png} 
@@ -90,13 +88,10 @@ const SearchBar = () => {
                 />
                 <h3>{data.name.common}</h3> 
                 </div>
-                )
-             })
-          }
-        
-      </div>
-    </div>
-  )
+                ))}
+         </div>
+     </div>
+  );
 }
 
 export default SearchBar
