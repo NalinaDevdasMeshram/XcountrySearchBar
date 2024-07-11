@@ -1,13 +1,11 @@
-import {useEffect, useState }from "react";
+import {useEffect, useState } from "react";
 import styles from './SearchBar.module.css';
 const SearchBar = () => {
     const [country, setCountry] = useState([]);
     const [countrySearch, setCountrySearch] = useState('');
-      // const [debounceSearch, setDebounceSearch] = useState('');
+    const [debounceSearch, setDebounceSearch] = useState('');
     
-      useEffect(()=>{
-        handleSearchBarApi();
-      },[])
+    
       // getting All country data in mounting phase
   const handleSearchBarApi = async() =>{  
         try{
@@ -20,48 +18,48 @@ const SearchBar = () => {
               console.error('something went wrong', error.message)
              }
     }
-    // useEffect(()=>{
-    //   handleSearchBarApi();
-    // },[])
+    useEffect(()=>{
+      handleSearchBarApi();
+    },[])
     // getting data depen upon user typing
-    // const handleSearchCountryNameApi = async(searchItem) => {
-    //      console.log('search', searchItem)
-    //   if(searchItem){   
-    //    try{
-    //             const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
-    //             const  API_URLResult  = await API_URL.json();
-    //             console.log('Data result', API_URLResult)
-    //              setCountry(API_URLResult)
-    //           }
-    //           catch(e){
-    //                 console.error(e.message)
-    //           } 
-    //     } 
-    //     else{
-    //         // console.log('searchItem', handleSearchBarApi()) // getting promise
-    //         handleSearchBarApi();
+    const handleSearchCountryNameApi = async(searchItem) => {
+         console.log('search', searchItem)
+      if(searchItem){   
+       try{
+                const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
+                const  API_URLResult  = await API_URL.json();
+                console.log('Data result', API_URLResult)
+                 setCountry(API_URLResult)
+              }
+              catch(e){
+                    console.error(e.message)
+              } 
+        } 
+        else{
+             console.log('searchItem', handleSearchBarApi()) // getting promise
+            handleSearchBarApi();
         
-    //     }
+        }
       
-    // };
+    };
     // debouncing 
     
-    // useEffect(() => {
+    useEffect(() => {
          
-    //     const DebounceApi = setTimeout(() => {
-    //       console.log('debouncing search', DebounceApi)
+        const DebounceApi = setTimeout(() => {
+          console.log('debouncing search', DebounceApi)
           
-    //         setDebounceSearch(countrySearch);
+            setDebounceSearch(countrySearch);
            
-    //     }, 1000);
-    //     // console.log('cleartimeout',clearTimeout(DebounceApi))
-    //       return () => clearTimeout(DebounceApi)
-    //     }, [countrySearch]);
+        }, 1000);
+        // console.log('cleartimeout',clearTimeout(DebounceApi))
+          return () => clearTimeout(DebounceApi)
+        }, [countrySearch]);
 
-    // useEffect(() => {
-    //     console.log("debounceSearch", debounceSearch)
-    //    handleSearchCountryNameApi(debounceSearch);
-    // }, [debounceSearch]);
+    useEffect(() => {
+        console.log("debounceSearch", debounceSearch)
+       handleSearchCountryNameApi(debounceSearch);
+    }, [debounceSearch]);
 
    
    const filtersearchquery = country.filter((searchName) =>
@@ -78,13 +76,13 @@ const SearchBar = () => {
       onChange={(e) => setCountrySearch(e.target.value)}
       />
       
-      <div className={styles.countryCard}>
+      <div className={styles.container}>
         { 
             
             filtersearchquery.map(data =>{
-                //  console.log('filtersearchquery',country)
+                  // console.log('filtersearchquery',filtersearchquery)
         return(
-               <div className={styles.container} key={data.cca3}>
+               <div className={styles.countryCard} key={data.cca3}>
                 <img className={styles.imgSrc} 
                 src={data.flags.png} alt={data.cca3}/>
                 <h3>{data.name.common}</h3> 

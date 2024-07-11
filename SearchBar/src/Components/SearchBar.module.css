@@ -11,7 +11,7 @@ display: flex;
  font-weight: 400;
  padding: 10px;
 }
- .container{
+ .countryCard{
    width: 10%;
    height:180px;
    border: 1px solid gray;
@@ -27,24 +27,8 @@ display: flex;
   font-size: 20px;
   overflow: hidden; 
  } 
-.countryCard{
-    /* width: 10%;
-    height:180px;
-    border: 1px solid gray;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-   align-items: center;
-   text-align: center;
-   font-weight: 600;
-   font-size: 20px;
-   overflow: hidden; */
-
-
-   width: 100vw;
+.container{
+    width: 100vw;
     height: 100rem;
     display: flex;
     flex-wrap: wrap; 
