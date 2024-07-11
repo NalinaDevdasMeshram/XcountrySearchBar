@@ -3,7 +3,7 @@ import styles from './SearchBar.module.css';
 const SearchBar = () => {
     const [country, setCountry] = useState([]);
     const [countrySearch, setCountrySearch] = useState('');
-    const [debounceSearch, setDebounceSearch] = useState('');
+     const [debounceSearch, setDebounceSearch] = useState('');
     
     
       // getting All country data in mounting phase
@@ -22,26 +22,26 @@ const SearchBar = () => {
       handleSearchBarApi();
     },[])
     // getting data depen upon user typing
-    const handleSearchCountryNameApi = async(searchItem) => {
-         console.log('search', searchItem)
-      if(searchItem){   
-       try{
-                const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
-                const  API_URLResult  = await API_URL.json();
-                console.log('Data result', API_URLResult)
-                 setCountry(API_URLResult)
-              }
-              catch(e){
-                    console.error(e.message)
-              } 
-        } 
-        else{
-             console.log('searchItem', handleSearchBarApi()) // getting promise
-            handleSearchBarApi();
+    // const handleSearchCountryNameApi = async(searchItem) => {
+    //      console.log('search', searchItem)
+    //   if(searchItem){   
+    //    try{
+    //             const API_URL =  await fetch(`https://restcountries.com/v3.1/name/${searchItem}`);
+    //             const  API_URLResult  = await API_URL.json();
+    //             console.log('Data result', API_URLResult)
+    //              setCountry(API_URLResult)
+    //           }
+    //           catch(e){
+    //                 console.error(e.message)
+    //           } 
+    //     } 
+    //     else{
+    //          console.log('searchItem', handleSearchBarApi()) // getting promise
+    //         handleSearchBarApi();
         
-        }
+    //     }
       
-    };
+    // };
     // debouncing 
     
     useEffect(() => {
@@ -51,19 +51,19 @@ const SearchBar = () => {
           
             setDebounceSearch(countrySearch);
            
-        }, 1000);
+        }, 500);
         // console.log('cleartimeout',clearTimeout(DebounceApi))
           return () => clearTimeout(DebounceApi)
         }, [countrySearch]);
 
-    useEffect(() => {
-        console.log("debounceSearch", debounceSearch)
-       handleSearchCountryNameApi(debounceSearch);
-    }, [debounceSearch]);
+    // useEffect(() => {
+    //     console.log("debounceSearch", debounceSearch)
+    //    handleSearchCountryNameApi(debounceSearch);
+    // }, [debounceSearch]);
 
    
    const filtersearchquery = country.filter((searchName) =>
-    searchName.name.common.toLowerCase().includes(countrySearch.toLowerCase())
+    searchName.name.common.toLowerCase().includes(debounceSearch.toLowerCase())
   ) 
    
 
