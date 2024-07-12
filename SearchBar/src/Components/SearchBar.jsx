@@ -88,7 +88,7 @@ const SearchBar = () => {
                 src={data.flags.png} 
                 alt={data.cca3}
                 />
-                <h3>{data.name.common}</h3> 
+                <h2>{data.name.common}</h2> 
                 </div>
                 ))}
          </div>
