@@ -81,7 +81,7 @@ const SearchBar = () => {
         {filtersearchquery.map(data =>(
         // console.log('filtersearchquery',filtersearchquery)
           <div className={styles.countryCard} key={data.cca3}>
-                <img 
+            <img 
                 className={styles.imgSrc} 
                 src={data.flags.png} 
                 alt={data.cca3}
